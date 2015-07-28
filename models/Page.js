@@ -13,7 +13,7 @@ var Page = new keystone.List('Page', {
 });
 
 Page.add({
-	title: { type: String, required: true },
+	title: { type: String, required: true ,label: '标题'},
 	content: { type: Types.Html, wysiwyg: true, height: 400 }
 });
 
