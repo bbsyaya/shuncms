@@ -7,21 +7,20 @@ exports = module.exports = function(req, res) {
 	
 	// Set locals
 	locals.filters = {
-		post: req.params.page
+		page: req.params.page
 	};
 	locals.data = {
 	};
 	
-	// Load the current post
+	// Load the current page
 	view.on('init', function(next) {
 		
-		var q = keystone.list('Post').model.findOne({
-			state: 'published',
-			slug: locals.filters.post
-		}).populate('author categories');
+		var q = keystone.list('Page').model.findOne({
+			slug: locals.filters.page
+		});
 		
 		q.exec(function(err, result) {
-			locals.data.post = result;
+			locals.data.page = result;
 			next(err);
 		});
 		
