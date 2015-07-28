@@ -16,11 +16,15 @@ exports = module.exports = function(req, res) {
 	
 	// Load the current post
 	view.on('init', function(next) {
-		
-		var q = keystone.list('Post').model.findOne({
+		var filterData = {
 			state: 'published',
 			slug: locals.filters.post
-		}).populate('author categories');
+		};
+		if (req.query.preview) {
+			delete filterData.state;
+		}
+		var q = keystone.list('Post').model.findOne(filterData)
+			.populate('author categories');
 		
 		q.exec(function(err, result) {
 			locals.data.post = result;
